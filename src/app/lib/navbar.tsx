@@ -17,7 +17,7 @@ export default function Navbar() {
     const path = usePathname();
 
     const navigation = [
-        { name: 'Matches', href: '/matches', current: path === '/matches' },
+        { name: 'Events', href: '/events', current: path === '/events' },
         { name: 'Teams', href: '/teams', current: path === '/teams' },
     ]
 
