@@ -12,7 +12,7 @@ interface MemberCardProps {
 
 function MemberCard({ member, showSocials, onShowClick}: MemberCardProps) {
     return (
-        <div key={member.name} className="group w-64 h-[400px] flex justify-center items-center rounded-md overflow-hidden">
+        <div key={member.name} className="group w-64 xl:w-64 h-[400px] lg:mb-0 lg:w-44 md:w-64 md:mb-4 flex justify-center items-center rounded-md overflow-hidden">
             {showSocials[member.name] ? (
                 <div className="bg-j4-background bg-cover bg-center w-full h-full opacity-100 scale-105"></div>
             ) : (

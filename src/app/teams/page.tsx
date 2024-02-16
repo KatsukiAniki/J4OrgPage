@@ -31,13 +31,13 @@ export default function Page() {
                     <MotionPage>
                         <div className="w-full">
                             {/* Your existing layout */}
-                            <div className="flex flex-row h-full gap-4 justify-center mt-[5%]">
+                            <div className="flex flex-col lg:flex-row items-center h-full gap-4 justify-center mt-[5%]">
                                 {mainMembers.map((member) => (
                                     <MemberCard key={member.name} member={member} showSocials={showSocials} onShowClick={handleOnShowClick} />
                                 ))}
                             </div>
                             <h2 className="text-3xl text-center mt-[2%]">Substitute</h2>
-                            <div className="flex flex-row h-full gap-4 justify-center mt-[2%]">
+                            <div className="flex flex-row md:flex-col md:items-center h-full gap-4 justify-center mt-[2%]">
                                 {subMembers.map((member) => (
                                     <MemberCard key={member.name} member={member} showSocials={showSocials} onShowClick={handleOnShowClick} />
                                 ))}
