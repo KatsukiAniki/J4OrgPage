@@ -17,6 +17,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="h-full">
+      <head>
+      <link rel="icon" href="/J4PB.png" sizes="any" />
+      </head>
       <body className={`${inter.className} h-full`}>
         <Navbar></Navbar>
         {children}
