@@ -2,6 +2,7 @@
 
 import { AppProps } from "next/app";
 import { ReactElement } from "react";
+import Image from "next/image";
 
 export default function standingsTable() {
 
@@ -29,7 +30,7 @@ export default function standingsTable() {
                             RND
                         </th>
                         <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            <img src="https://projectv.gg/img/triangle-transparent.9a820544.svg" alt="Delta" />
+                            <Image src="https://projectv.gg/img/triangle-transparent.9a820544.svg" alt="Delta" width={30} height={30}/>
                         </th>
                     </tr>
                 </thead>

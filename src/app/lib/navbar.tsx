@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 import { AnimatePresence } from 'framer-motion'
 import MotionPage from './motion'
+import Image from 'next/image'
 
 
 function classNames(...classes: string[]) {
@@ -51,10 +52,12 @@ export default function Navbar() {
                                             <Link
                                                 href={'/'}
                                             >
-                                                <img
+                                                <Image
                                                     className="h-8 w-auto"
                                                     src="/J4PB.png"
-                                                    alt="Your Company"
+                                                    alt="J4"
+                                                    width={30}
+                                                    height={30}
                                                 />
                                             </Link>
                                         </div>
