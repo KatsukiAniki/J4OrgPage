@@ -18,11 +18,11 @@ export default function Home() {
 
   return (
     <MotionPage>
-      <div className="w-full h-[calc(100vh-64px)] overflow-auto flex">
+      <div className="w-full h-[calc(100vh-64px)] overflow-auto flex sm:flex-row flex-col items-center">
       <div className='flex flex-col h-full w-3/5 pt-[5%]'>
             <h1 className='text-3xl text-center'>HOME</h1>
         </div>
-        <div className="flex flex-col h-full w-2/5 pt-[5%]">
+        <div className="flex flex-col h-full w-full sm:w-2/5 pt-[5%]">
           <a className="twitter-timeline" href="https://twitter.com/j4esports?ref_src=twsrc%5Etfw">Tweets by j4esports</a>
         </div>
       </div>
