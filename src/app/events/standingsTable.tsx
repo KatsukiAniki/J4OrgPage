@@ -2,67 +2,59 @@
 
 import { AppProps } from "next/app";
 import { ReactElement } from "react";
+import Image from "next/image";
+import { Match } from "../data/match";
+import { formatDistanceToNow, parseISO } from 'date-fns';
 
-export default function standingsTable() {
+
+interface StandingsTableProps {
+    data: Match[];
+}
+
+export default function standingsTable({ data }: StandingsTableProps) {
+
+    function timeUntilMatch(date: any) {
+        const matchDate = parseISO(date);
+        return formatDistanceToNow(matchDate, { addSuffix: true });
+      }
+
+    const sortedMatches = data.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
 
     return (
-        <>
-            <table className="min-w-full divide-y divide-gray-200 shadow-lg mt-10">
-                <thead className="bg-gray-50">
-                    <tr>
-                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Place
-                        </th>
-                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Participant
-                        </th>
-                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            W
-                        </th>
-                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            L
-                        </th>
-                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Map
-                        </th>
-                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            RND
-                        </th>
-                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            <img src="https://projectv.gg/img/triangle-transparent.9a820544.svg" alt="Delta" />
-                        </th>
-                    </tr>
-                </thead>
-                <tbody className="bg-white divide-y divide-gray-200">
-                    <tr>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">The Sliding Mr. Bones (Next Stop, Pottersville)</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Malcolm Lockyer</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">1961</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">-</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">-</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">-</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">-</td>
-                    </tr>
-                    <tr>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Witchy Woman</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">The Eagles</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">1972</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">-</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">-</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">-</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">-</td>
-                    </tr>
-                    <tr>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Shining Star</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Earth, Wind, and Fire</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">1975</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">-</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">-</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">-</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">-</td>
-                    </tr>
-                </tbody>
-            </table>
-        </>
+        <div className="container mx-auto w-[80%]">
+            <h2 className="text-2xl font-semibold mb-4">Upcoming Matches</h2>
+            <div className="overflow-x-auto">
+                <table className="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
+                    <thead className="bg-gray-800 text-white">
+                        <tr>
+                            <th className="text-left py-3 px-4 uppercase font-semibold text-sm">Date</th>
+                            <th className="text-left py-3 px-4 uppercase font-semibold text-sm">Match</th>
+                            <th className="text-left py-3 px-4 uppercase font-semibold text-sm">Score</th>
+                        </tr>
+                    </thead>
+                    <tbody className="text-gray-700">
+                        {sortedMatches.map((match: Match) => (
+                            <tr key={match.team1.name} className="border-b border-gray-200 hover:bg-gray-100">
+                                <td className="py-3 px-4">{new Date(match.date).toLocaleString()} - {timeUntilMatch(match.date)}</td>
+                                <td className="py-3 px-4 flex items-center">
+                                    <div className="rounded-lg overflow-hidden w-8 h-8 mr-2 flex justify-center items-center">
+                                        <Image src={`${match.team1.avatar}`} width={30} height={30} alt={match.team1.name} />
+                                    </div>
+                                    {match.team1.name === "J4" ? <span className="font-bold">{match.team1.name}</span> : match.team1.name}
+                                    <span className="ml-2">VS</span>
+                                    <div className="rounded-lg overflow-hidden w-8 h-8 ml-2 flex justify-center items-center">
+                                        <Image src={`${match.team2.avatar}`} width={30} height={30} alt={match.team2.name} />
+                                    </div>
+                                    <span className="pl-2">{match.team2.name === "J4" ? <span className="font-bold">{match.team2.name}</span> : match.team2.name}</span>
+                                </td>
+                                <td className="py-3 px-4">
+                                {match.score_confirmed ? match.score : "TBD"}
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+        </div>
     );
 }
