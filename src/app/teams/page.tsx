@@ -30,7 +30,6 @@ export default function Page() {
                     </h2>
                     <MotionPage>
                         <div className="w-full">
-                            {/* Your existing layout */}
                             <div className="flex flex-col lg:flex-row items-center h-full gap-4 justify-center mt-[5%]">
                                 {mainMembers.map((member) => (
                                     <MemberCard key={member.name} member={member} showSocials={showSocials} onShowClick={handleOnShowClick} />

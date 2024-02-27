@@ -18,8 +18,8 @@ export default function Navbar() {
     const path = usePathname();
 
     const navigation = [
-        { name: 'Events', href: '/events', current: path === '/events' },
-        { name: 'Teams', href: '/teams', current: path === '/teams' },
+        { name: 'Events', href: '/events', current: path?.startsWith('/events') },
+        { name: 'Teams', href: '/teams', current: path?.startsWith('/teams') },
     ]
 
     return (
@@ -65,7 +65,7 @@ export default function Navbar() {
                                             <div className="flex h-full justify-center space-x-4 relative">
                                                 {navigation.map((item, index) => (
                                                         <Link key={item.name} href={item.href}
-                                                            className={`px-3 py-2 text-sm font-medium flex items-center ${path === item.href
+                                                            className={`px-3 py-2 text-sm font-medium flex items-center ${item.current
                                                                 ? 'text-black font-bold  border-b-2 border-red-500'
                                                                 : 'text-black hover:text-gray-500'
                                                                 }`}
