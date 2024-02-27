@@ -41,7 +41,7 @@ export default function standingsTable({ data }: StandingsTableProps) {
                                         <div className="rounded-lg overflow-hidden w-8 h-8 mr-2 flex justify-center items-center">
                                             <Image src={`${match.team1.avatar}`} width={30} height={30} alt={match.team1.name} />
                                         </div>
-                                        {match.team1.name === "J4" ? <span className="font-bold">{match.team1.name}</span> : match.team1.name}
+                                        {match.team1.name === "J4" ? <span className="font-bold">{match.team1.name}</span> : <span className="min-w-fit">{match.team1.name}</span>}
                                         <span className="ml-2">VS</span>
                                         <div className="rounded-lg overflow-hidden w-8 h-8 ml-2 flex justify-center items-center">
                                             <Image src={`${match.team2.avatar}`} width={30} height={30} alt={match.team2.name} />
