@@ -17,12 +17,30 @@ export default function standingsTable({ data }: StandingsTableProps) {
         const matchDate = parseISO(date);
         return formatDistanceToNow(matchDate, { addSuffix: true });
     }
+    
+    let scoreConfirmed = false;
 
-    const sortedMatches = data.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
-
+    function vaildateWinLoss(match: Match){
+        // {scoreConfirmed === true && ((match.team1.name === "J4" && match!.team1!.score! > match!.team2!.score!) || (match.team2.name === "J4" && match!.team1!.score! < match!.team2!.score!)) ? 
+        // <span className="text-green-500">{match.team1.score} : {match.team2.score}</span> : <span className="text-red-500">{match.team1.score} : {match.team2.score}</span>}
+            if(scoreConfirmed)
+            {
+                if((match.team1.name === "J4" && match!.team1!.score! > match!.team2!.score!) || (match.team2.name === "J4" && match!.team1!.score! < match!.team2!.score!)){
+                    scoreConfirmed = false;
+                    return <span className="text-green-500">{match.team1.score} : {match.team2.score}</span>
+                    
+                }
+                else
+                {
+                    scoreConfirmed = false;
+                    return <span className="text-red-500">{match.team1.score} : {match.team2.score}</span>
+                }
+            }
+            return <></>;
+    }
     return (
         <div className="container mx-auto w-full md:w-[80%] px-4 md:px-0">
-            <h2 className="text-xl md:text-2xl font-semibold mb-4 text-center md:text-start mt-4 md:mt-0">Upcoming Matches</h2>
+            <h2 className="text-xl md:text-2xl font-semibold mb-4 text-center md:text-start mt-4 md:mt-0">STAGE 2: DIV 2.1 Matches</h2>
             <div className="overflow-x-auto">
                 <table className="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
                     <thead className="bg-gray-800 text-white">
@@ -33,7 +51,7 @@ export default function standingsTable({ data }: StandingsTableProps) {
                         </tr>
                     </thead>
                     <tbody className="text-gray-700">
-                        {sortedMatches.map((match: Match) => (
+                        {data.map((match: Match) => (
                             <tr key={match.team1.name} className="border-b border-gray-200 hover:bg-gray-100">
                                 <td className="py-3 px-4">{new Date(match.date).toLocaleString()} - {timeUntilMatch(match.date)}</td>
                                 <td className="py-3 px-4">
@@ -50,7 +68,8 @@ export default function standingsTable({ data }: StandingsTableProps) {
                                     </div>
                                 </td>
                                 <td className="py-3 px-4">
-                                    {match.score_confirmed ? match.score : "TBD"}
+                                    {match.score_confirmed ? scoreConfirmed = true : "TBD"}
+                                    {vaildateWinLoss(match)}
                                 </td>
                             </tr>
                         ))}
