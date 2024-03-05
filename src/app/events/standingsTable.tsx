@@ -62,7 +62,7 @@ export default function standingsTable({ data }: StandingsTableProps) {
                     <tbody className="text-gray-700">
                         {data.map((match: Match) => (
                             <tr key={match.team1.name} className="border-b border-gray-200 hover:bg-gray-100">
-                                <td className="py-3 px-4">{new Date(match.date).toLocaleString()} - {timeUntilMatch(match.date)}</td>
+<td className="py-3 px-4">{new Date(match.date).toLocaleDateString()} - {timeUntilMatch(match.date)}</td>
                                 <td className="py-3 px-4">
                                     <div className="flex items-center md:flex-row md:justify-start">
                                         <div className="rounded-lg overflow-hidden w-8 h-8 mr-2 flex justify-center items-center">

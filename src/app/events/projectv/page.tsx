@@ -1,13 +1,28 @@
+'use client'
+
 import StandingsTable from "../standingsTable";
 import Image from "next/image";
 import UnderConstruction from "@/app/lib/underConstruction";
 import handler from "@/pages/api/data";
 import { Match } from "@/app/data/match";
+import { useEffect, useState } from "react";
 
-export default async function ProjectV(){
+export default function ProjectV(){
 
-    const matches: Match[] = await handler();
-    // const matches: Match[] = [];
+    const [matches, setMatches] = useState<Match[]>([]);
+
+    useEffect(() => {
+      const fetchData = async () => {
+        try {
+          const response = handler() // Assuming your API endpoint is at /api/data
+          setMatches(await response);
+        } catch (error) {
+          console.error('Error fetching data:', error);
+        }
+      };
+  
+      fetchData();
+    }, []);
 
     return(
         <div>
