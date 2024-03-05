@@ -17,26 +17,35 @@ export default function standingsTable({ data }: StandingsTableProps) {
         const matchDate = parseISO(date);
         return formatDistanceToNow(matchDate, { addSuffix: true });
     }
-    
-    let scoreConfirmed = false;
 
-    function vaildateWinLoss(match: Match){
+    let scoreConfirmed = false;
+    let team = 0 | 1;
+
+    function vaildateWinLoss(match: Match) {
         // {scoreConfirmed === true && ((match.team1.name === "J4" && match!.team1!.score! > match!.team2!.score!) || (match.team2.name === "J4" && match!.team1!.score! < match!.team2!.score!)) ? 
         // <span className="text-green-500">{match.team1.score} : {match.team2.score}</span> : <span className="text-red-500">{match.team1.score} : {match.team2.score}</span>}
-            if(scoreConfirmed)
-            {
-                if((match.team1.name === "J4" && match!.team1!.score! > match!.team2!.score!) || (match.team2.name === "J4" && match!.team1!.score! < match!.team2!.score!)){
-                    scoreConfirmed = false;
-                    return <span className="text-green-500">{match.team1.score} : {match.team2.score}</span>
-                    
-                }
-                else
-                {
-                    scoreConfirmed = false;
-                    return <span className="text-red-500">{match.team1.score} : {match.team2.score}</span>
-                }
+        if (scoreConfirmed) {
+            if ((match.team1.name === "J4" && match!.team1!.score! > match!.team2!.score!) || (match.team2.name === "J4" && match!.team1!.score! < match!.team2!.score!)) {
+                scoreConfirmed = false;
+                match.team1.name === "J4" ? team = 0 : team = 1
+                return <span className="text-green-500">
+                    {team === 0 ? <><span className="font-bold">{match.team1.score}</span> : {match.team2.score}</> :
+                        <>{match.team1.score} : <span className="font-bold">{match.team2.score}</span></>
+                    }
+                </span>
+
             }
-            return <></>;
+            else {
+                scoreConfirmed = false;
+                match.team1.name === "J4" ? team = 0 : team = 1
+                return <span className="text-red-500">
+                    {team === 0 ? <><span className="font-bold">{match.team1.score}</span> : {match.team2.score}</> :
+                        <>{match.team1.score} : <span className="font-bold">{match.team2.score}</span></>
+                    }
+                </span>
+            }
+        }
+        return <></>;
     }
     return (
         <div className="container mx-auto w-full md:w-[80%] px-4 md:px-0">
