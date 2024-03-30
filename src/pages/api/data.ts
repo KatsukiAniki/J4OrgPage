@@ -2,7 +2,7 @@ import { Match } from "@/app/data/match";
 
 export default async function handler(){
     const pendingResponse = await fetch('https://api.projectv.gg/api/v1/frontend/participant/dbd4507d-1f7f-4ee4-bce7-ab065c63fb0e/xall_matches_to_team?match__encounters__score_confirmed=False&match__status__in=PENDING');
-    const confirmedResponse = await fetch('https://api.projectv.gg/api/v1/frontend/participant/dbd4507d-1f7f-4ee4-bce7-ab065c63fb0e/xall_matches_to_team?match__encounters__score_confirmed=True&tournament=2fb8cc2f-c587-435f-a995-f99c5d51062e&match__status__in=COMPLETED')
+    const confirmedResponse = await fetch('https://api.projectv.gg/api/v1/frontend/participant/dbd4507d-1f7f-4ee4-bce7-ab065c63fb0e/xall_matches_to_team?match__encounters__score_confirmed=True&tournament=b6ea1c02-b9bb-4b37-8db3-8c4f90aea7a8&match__status__in=COMPLETED')
     const pendingData = await pendingResponse.json();
     const confirmedData = await confirmedResponse.json();
 
@@ -49,7 +49,10 @@ export default async function handler(){
                 acc.splice(acc.indexOf(existingMatch), 1, current);
             }
         } else {
-            acc.push(current);
+            if(current.date !== null)
+            {
+                acc.push(current);
+            }
         }
         return acc;
     }, []);
